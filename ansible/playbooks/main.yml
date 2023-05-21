@@ -1,0 +1,83 @@
+---
+- name: Install application on VMs
+  hosts: tag_app=webapp
+  become: yes
+
+  tasks:
+    - name: install "{{ utilities }}" on Oracle Linux
+      yum:
+        name: "{{ utilities }}"
+        state: latest
+      when: ansible_facts['distribution'] == "OracleLinux"
+
+    - name: install "{{ utilities }}" on Ubuntu
+      ansible.builtin.apt:
+        name: "{{ utilities }}"
+        state: latest
+      when: ansible_facts['distribution'] == "Ubuntu"
+
+    - name: install "{{ services }}" on Oracle Linux
+      yum:
+        name: "{{ services }}"
+        state: latest
+      when: ansible_facts['distribution'] == "OracleLinux"
+ 
+    - name: install "{{ services }}" on Ubuntu
+      ansible.builtin.apt:
+        name: "{{ services }}"
+        state: latest
+        update_cache: yes
+      when: ansible_facts['distribution'] == "Ubuntu"    
+
+    - name: enable all the services on Ubuntu
+      ansible.builtin.service:
+        name: "{{ item }}"
+        state: started
+        enabled: yes
+      with_items: "{{ services }}"
+      when: ansible_facts['distribution'] == "Ubuntu"
+
+    - name: enable all the services on Oracle Linux
+      ansible.builtin.service:
+        name: "{{ item }}"
+        state: started
+        enabled: yes
+      with_items: "{{ services }}"
+      when: ansible_facts['distribution'] == "OracleLinux"
+    
+    - name: enable access to ports defined on Ubuntu
+      community.general.ufw:
+        rule: allow
+        port: "{{ item }}"
+        proto: tcp
+      with_items: "{{ ports }}"
+      when: ansible_facts['distribution'] == "Ubuntu"
+
+    - name: enable access to ports defined on Oracle Linux
+      ansible.posix.firewalld:
+        zone: public
+        port: "{{ item }}"
+        permanent: yes
+        state: enabled
+      with_items: "{{ ports }}"
+      when: ansible_facts['distribution'] == "OracleLinux"
+      register: firewall_result
+
+    - name: reload firewalld
+      ansible.builtin.shell: firewall-cmd --reload
+      when: ansible_facts['distribution'] == "OracleLinux" and firewall_result.changed
+
+    - name: Create index.html if not exist 
+      ansible.builtin.file:
+        path: /var/www/html/index.html
+        state: touch
+        mode: u=rw,g=r,o=r
+
+    - name: Write HTML content
+      blockinfile:
+        path: /var/www/html/index.html
+        marker: "<!-- {mark} ANSIBLE MANAGED BLOCK -->"
+        block: |
+          <h1>This is {{ ansible_hostname }}</h1>
+          <h2>IP Address: {{ ansible_default_ipv4.address }}</h2>
+          <p>You have installed a webserver successfully</p>
