@@ -1,5 +1,5 @@
 - name: Install application on VMs
-  hosts: common_servcies
+  hosts: common_services
   become: true
 
   tasks:
