@@ -1,5 +1,5 @@
 - name: Install application on VMs
-  hosts: tag_app=webapp
+  hosts: common_servcies
   become: yes
 
   tasks:
