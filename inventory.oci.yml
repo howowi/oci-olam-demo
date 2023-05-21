@@ -5,7 +5,7 @@ regions: all
 
 #Get form Howie compartment
 compartments:
-- compartment_ocid: ocid1.compartment.oc1..aaaaaaaaqhbzavhpwjjlcf43lgkjhhz2qbztfh6xbav24x7kfaxrtxvmgyra
+- compartment_ocid: ocid1.compartment.oc1..aaaaaaaaqwtavjufclqbamx57btxslzaara325ukaf3g2cx6x3brekru5dia
   fetch_hosts_from_subcompartments: false
 
 #Fetch Compute
