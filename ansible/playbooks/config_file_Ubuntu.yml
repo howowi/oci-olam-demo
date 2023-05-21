@@ -1,0 +1,14 @@
+---
+#List down the packages to be installed on instance here
+
+services:
+  - apache2
+  
+utilities:
+  - telnet
+  - curl
+
+#List down the ports to be opened on instance
+ports:
+  - '80'
+  - '8080'
