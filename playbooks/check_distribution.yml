@@ -1,6 +1,6 @@
 - name: Install application on VMs
   hosts: common_servcies
-  become: yes
+  become: true
 
   tasks:
   - name: Check distribution
