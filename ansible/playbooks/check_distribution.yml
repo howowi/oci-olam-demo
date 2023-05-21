@@ -1,0 +1,7 @@
+- name: Install application on VMs
+  hosts: tag_app=webapp
+  become: yes
+
+  tasks:
+  - name: Check distribution
+    debug: msg="{{ ansible_distribution }}"
