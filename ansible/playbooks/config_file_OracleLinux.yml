@@ -1,0 +1,14 @@
+---
+#List down the packages to be installed on ec2_devops here
+
+services:
+  - httpd
+  
+utilities:
+  - telnet
+  - curl
+
+#List down the ports to be opened on ec2_devops
+ports:
+  - '80'
+  - '8080'
