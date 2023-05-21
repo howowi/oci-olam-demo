@@ -1,0 +1,25 @@
+plugin: oracle.oci.oci
+
+# From all regions
+regions: all
+
+#Get form Howie compartment
+compartments:
+- compartment_ocid: ocid1.compartment.oc1..aaaaaaaaqhbzavhpwjjlcf43lgkjhhz2qbztfh6xbav24x7kfaxrtxvmgyra
+  fetch_hosts_from_subcompartments: false
+
+#Fetch Compute
+fetch_compute_hosts: True
+
+# Enable Cache
+cache: yes
+cache_plugin: jsonfile
+cache_timeout: 7200
+cache_connection: /tmp/oci-cache
+cache_prefix: oci_
+
+# Sets the inventory_hostname to either "display_name" or id
+# "'display_name+'.oci.com'" has more preference than id
+hostname_format_preferences:
+  - "public_ip"
+  - "private_ip"
