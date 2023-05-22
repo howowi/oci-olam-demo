@@ -5,9 +5,7 @@ regions: all
 
 #Get form compartment
 compartments:
-- compartment_ocid: ocid1.compartment.oc1..aaaaaaaaqwtavjufclqbamx57btxslzaara325ukaf3g2cx6x3brekru5dia
-  fetch_hosts_from_subcompartments: false
-- compartment_ocid: ocid1.compartment.oc1..aaaaaaaaeurwtq4fnoy6ow4b7wvpepfe64fwtsmzevtgmr67ga2o2nytj7eq
+- compartment_ocid: "{{ compartment_ocid }}"
   fetch_hosts_from_subcompartments: false
 
 #Fetch Compute
