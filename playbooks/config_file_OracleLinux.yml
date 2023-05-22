@@ -10,5 +10,5 @@ utilities:
 
 #List down the ports to be opened on ec2_devops
 ports:
-  - '80'
-  - '8080'
+  - '80/tcp'
+  - '8080/tcp'
