@@ -1,12 +1,20 @@
-# ocidevopslab
+# Oracle Linux Automation Manager HOL
 
-Hi
+### **Introduction**
+Oracle Linux Automation Manager is a task engine and Web interface based on AWX project for scheduling and running Ansible playbook tasks on the inventories the playbooks interact with. The Oracle Linux Automation Engine (Ansible Engine) is an automation tool for deploying software, configuring systems, and orchestrating tasks such as upgrades and updates, in the form of playbooks.
 
-## Getting started
+This lab covers the core functionalities of Oracle Linux Automation Manager.
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+### **Lab instructions**
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+### (a) Obtain Ansible files
+
+1. 
+
+
+
+
+
 
 ## Add your files
 
