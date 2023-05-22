@@ -8,7 +8,7 @@ use_extra_vars: true
 #Get from compartment
 compartments:
 - compartment_name: "user10"
-  fetch_hosts_from_subcompartments: false
+  parent_compartment_ocid: ocid1.compartment.oc1..aaaaaaaaem2rhhvdlnwgntk647rogfhc5rlljwtprlo4kk2zbsuifb3zvluq
 
 #Fetch Compute
 fetch_compute_hosts: True
