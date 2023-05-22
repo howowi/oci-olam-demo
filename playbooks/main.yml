@@ -1,7 +1,7 @@
 ---
 - name: Install application on VMs
-  hosts: tag_app=webapp
-  become: yes
+  hosts: tag_app=webserver
+  become: true
 
   tasks:
     - name: install "{{ utilities }}" on Oracle Linux
