@@ -75,6 +75,9 @@ This lab covers the core functionalities of Oracle Linux Automation Manager.
 ### (c) Set up OLAM Credentials
 
 1. Login to OLAM https://168.138.184.36/#/login with your allocated credentials.
+
+    ![image](img/olem-login.png)
+
 2. On the left pane, press `Credentials` and press `Add`.
 3. We'll need to create 3 credentials for Source Control, Oracle Cloud Infrastructure and Machine.
     
@@ -210,6 +213,9 @@ This lab covers the core functionalities of Oracle Linux Automation Manager.
     - Select `Check Linux Distribution`
 
 5. Hover to the `Check Linux Distribution` box, press the `"plus"` button to add another stage.
+
+    ![image](img/add-stage.png)
+
 6. Select `On Success` and press `Next`.
 7. Apply the following config and press `Save`.
 
@@ -220,3 +226,5 @@ This lab covers the core functionalities of Oracle Linux Automation Manager.
 
 9. On the details page, press `Launch` to run the config tasks.
 10. When the jobs are completed, key in the public IP address of the webserver to verify the config.
+
+    ![image](img/webserver.png)
