@@ -1,15 +1,32 @@
-# Oracle Linux Automation Manager HOL
+# Oracle Linux Automation Manager (OLEM) HOL
 
 ### **Introduction**
-Oracle Linux Automation Manager is a task engine and Web interface based on AWX project for scheduling and running Ansible playbook tasks on the inventories the playbooks interact with. The Oracle Linux Automation Engine (Ansible Engine) is an automation tool for deploying software, configuring systems, and orchestrating tasks such as upgrades and updates, in the form of playbooks.
+Oracle Linux Automation Manager (OLEM) is a task engine and Web interface based on AWX project for scheduling and running Ansible playbook tasks on the inventories the playbooks interact with. The Oracle Linux Automation Engine (Ansible Engine) is an automation tool for deploying software, configuring systems, and orchestrating tasks such as upgrades and updates, in the form of playbooks.
 
 This lab covers the core functionalities of Oracle Linux Automation Manager.
 
 ### **Lab instructions**
 
-### (a) Obtain Ansible files
+### (a) Create a Gitlab project for OLEM
 
-1. 
+1. Login to Gitlab https://168.138.184.36/#/login with your allocated credentials.
+2. Reset the password.
+3. After logging in, press `New Project` and select `Create blank project`. 
+4. Input Project name `<user>-olem` eg. user10-olem and press `Create project`.
+5. Go back to OCI Console. Access Code Editor.
+
+    ![image](img/code-editor.png)
+
+6. Open a new Terminal session.
+7. Configure git
+    ```
+    git config --global user.name "user10"
+    git config --global user.name "user10@oracle.com"
+    git config --global credential.helper store
+    ```
+8. Clone files for OLEM project
+```
+
 
 
 
