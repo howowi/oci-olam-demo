@@ -1,117 +1,222 @@
-# Oracle Linux Automation Manager (OLEM) HOL
+# Oracle Linux Automation Manager (OLAM) HOL
 
 ### **Introduction**
-Oracle Linux Automation Manager (OLEM) is a task engine and Web interface based on AWX project for scheduling and running Ansible playbook tasks on the inventories the playbooks interact with. The Oracle Linux Automation Engine (Ansible Engine) is an automation tool for deploying software, configuring systems, and orchestrating tasks such as upgrades and updates, in the form of playbooks.
+Oracle Linux Automation Manager (OLAM) is a task engine and Web interface based on AWX project for scheduling and running Ansible playbook tasks on the inventories the playbooks interact with. The Oracle Linux Automation Engine (Ansible Engine) is an automation tool for deploying software, configuring systems, and orchestrating tasks such as upgrades and updates, in the form of playbooks.
 
 This lab covers the core functionalities of Oracle Linux Automation Manager.
 
 ### **Lab instructions**
 
-### (a) Create a Gitlab project for OLEM
+### (a) Create a Gitlab project for OLAM
 
-1. Login to Gitlab https://168.138.184.36/#/login with your allocated credentials.
+1. Login to Gitlab http://129.150.61.205/users/sign_in with your allocated credentials.
 2. Reset the password.
 3. After logging in, press `New Project` and select `Create blank project`. 
-4. Input Project name `<user>-olem` eg. user10-olem and press `Create project`.
+
+    ![image](img/create-project.png)
+
+4. Input Project name `<user>-olam` eg. user10-olam and press `Create project`. Uncheck the box for `Initialize repository with a README`.
 5. Go back to OCI Console. Access Code Editor.
 
     ![image](img/code-editor.png)
 
 6. Open a new Terminal session.
-7. Configure git
+
+    ![image](img/terminal.png)
+
+7. Configure git. Change the values accordingly.
     ```
     git config --global user.name "user10"
     git config --global user.name "user10@oracle.com"
     git config --global credential.helper store
     ```
-8. Clone files for OLEM project
-```
+8. Clone the files for OLAM project
+    ```
+    git clone http://129.150.61.205/user10/olam-hol.git
+    ```
+9. Push the files to your Gitlab project created previously.
+    ```
+    cd olam-hol/
+    git remote rename origin old-origin
+    git remote add origin <your repo url>
+    git push -u origin --all
+    ```
+10. Modify the `compartment_name` in the `inventory.oci.yml` file. Save it.
+
+    ![image](img/compartment-inventory.png)
+
+11. Commit the change and push it to your repo.
+
+    ![image](img/code-editor-commit.png)
+
+### (b) Provision a VM
+
+1. Type `instances` on the search bar of OCI Console and click on `instances`.
+2. Make sure you're in your own compartment. Eg. user10
+3. Press `Create instance` and apply the following config.
+
+    - Name: `webserver`
+    - Shape: `VM.Standard.E4.Flex`, `1 OCPU`, `4GB RAM`
+    - Networking:
+        
+        - Virtual cloud network: Change the compartment to `common_services` and select `common_svc_vcn`
+        - Subnet: Change the compartment to `common_services` and select `public subnet-common_svc_vcn`
+    
+    - SSH Key: `Generate a key pair for me`. Save private and public key.
+    - Tagging:
+
+        - Press `Show advanced option` 
+        - Tag key: `app`
+        - Tag value: `webserver`
+
+4. Press `Create`.
 
 
+### (c) Set up OLAM Credentials
 
+1. Login to OLAM https://168.138.184.36/#/login with your allocated credentials.
+2. On the left pane, press `Credentials` and press `Add`.
+3. We'll need to create 3 credentials for Source Control, Oracle Cloud Infrastructure and Machine.
+    
+    a. Source Control
+    
+    - Name: `gitlab`
+    - Credential Type: `Source Control`
+    - Username: `<your gitlab username>`
+    - Password: `<your gitlab password>`
+    
+    b. Oracle Cloud Infrastructure
+    
+    - Name: `OCI`
+    - Credential Type: `Oracle Cloud Infrastructure`
+    - User OCID: `ocid1.user.oc1..aaaaaaaa3lwy5xxkl3qtgkbbcnly3bdwaszrsasnn26akgdnh7d7mxh3va4q`
+    - Fingerprint: `90:6a:95:26:8a:a6:05:8d:9e:96:b7:26:a7:d2:93:e9`
+    - Tenant OCID: `ocid1.tenancy.oc1..aaaaaaaaaekoeezags6xaw66xa7x7xqzqxisxk3m5yxlkthrw5fjhm6rx6sq`
+    - Region: `ap-singapore-1`
+    - Private User Key:
+        ```
+        -----BEGIN PRIVATE KEY-----
+        MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDSIbO+MG76VROl
+        O8jzZF/vMgu8Ux1fnfTDKK4kdRycKhNxl0bh/GNNYJMVAEZYJBLRYzRTmTCNrqdL
+        UPPXC5FGDO54xFfAeaWWg8RWY0onyENCHe3oPIP2MzOx9Ttq54U3YEfgrgGwL3Xh
+        rvbijk7l5bqmbVjzwa1yiy8qTnQDufP7m71RBP1TWeK8tfcBwG5yDZPiTDUDkqn+
+        mVpMEqEVscnkVrfhPPCumMScYnx8pgmNCKljUe1RO7vXpjPFJIhuEcse1YybbrIO
+        5YaszKTPSCdB8XLF5UmxDA0NokdLRYeb88Nkl1TfbmMlcbiH0QxYfgk+//6tFnCG
+        XE7/0R2RAgMBAAECggEAN33U9MXfmNY80Obf436/YvCJbttYJ3cUOzGUA2a1/nuS
+        FO5JNsarBrUZQnOHICGuooMbP3R2AQR9g4NGUaTpYWFq3JOlRNwbIYt8nv+rhqP5
+        Nw2mVS0eADd3UGidn1aytHQFp0zsfzWZYNcOtbe1GDs5tlesJPshrd0ZwIdlVdIc
+        AhL39LSsmmLRwxrBSz0FTEdPrMv11Kjw8aWdMl02Kocp+iG6QJjYUQPKzdICfFZ/
+        5DdZPrnPgM0R9kSxOojMSu045MfYAP12qSlBTaV2oi0P5YSLiMzWz9JLCG9xa18v
+        cQodeEFRCk3bWRmJB+6KIs1iYgEnjjZtHGlr4fXaDQKBgQDeIDG/AURlZmBcoWcD
+        ZxEL6IWg1UO7JhX1lxWOFLlMc9+97V2+ihcIgmxEsYlxDBsEgW7+3CEG5Yf/TUO9
+        P5Mxoj98rgNDUqhOU87NIsUl7Yc40vhvvmwZsccm++Tg8aJDK1ktjs1XpiuwGbLv
+        8L8FKenUI29/4DZpMl5JLtEHlwKBgQDyLUHCcIV7MwWfC+6jDHkXZ970dFvJ1bH9
+        gtOs263A+GvIwvvtOKGgQeLtrXNCKe18FA68Uke/99C/G/wF6L7mabNV0lyfF+k6
+        rLKbjs95rjWEvPpEswHakLbivsQh1nS8Q50yJfpeUnAC84hv2QhxKNE4ceGATbnU
+        59PVGgfpFwKBgE9WUG5YlYViO6jaPWEJvxzxwEjh439E6zL888X7wPN9r7y2u3UC
+        /Zccfm9KujyWhk/lqy98kI9WDG0zu64stvZTbTmrLZ8uNs9DP+olMSWK4XF6aSIA
+        cbv7s5ZJAkcWB07WfNO43b8gqxoLE85/vrqpbctHnNufyc9pHiQlhKOhAoGBANED
+        9HSPzvTE1X4uuzjoQ/7KfGg5oRrzH9qwNmdDdpRNFCHC/9H/BageFXCTOh4Jt9lW
+        Kl2pGhn6FaVLztl+xnxxEAHrPFtnNLmaYdDWkgTwMWqt+8adROVR7zaF9RtLT5dJ
+        N/wXQR51Qg2aCNCX3axk0SZJS5oD+3Zg27hZ7ifjAoGBANBu5B4hMQRQbSDb3n/f
+        LrJ7rir7rorffSImYytZIu/CaKJyRLF9IiqxawOnclrAN1rlT0sCmBsyZQQkNCYn
+        pgvDwUypOU59RAyUd2nY3TP30+peOJwaIbSRBTlcHZ/OWjaawDyN3SnqIAeg+PN+
+        HI00QZ1S0AO1uf/b0xEwu4M/
+        -----END PRIVATE KEY-----
+        ```
+    c. Machine
+    
+    - Name: `SSH_Key`
+    - Username: `opc`
+    - SSH Private Key: Drag the private key saved in section (b).
+    - Privilege Escalation Method: `sudo`
+    - Privilege Escalation Username: `root`
 
+### (d) Set up OLAM Project
 
+1. On the left pane, press `Projects` and press `Add`.
+2. Apply the following config and press `Save`.
 
+    - Name: `Webserver Config`
+    - Source Control Credential Type: `Git`
+    - Source Control URL: `<your gitlab repo URL>`
+    - Source Control Branch/Tag/Commit: `main`
+    - Source Control Credential: `gitlab`
 
-## Add your files
+### (e) Set up Inventories
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+1. On the left pane, press `Inventories` and press `Add`, `Add inventory`.
+2. Apply the following config and press `Save`.
 
-```
-cd existing_repo
-git remote add origin http://129.150.61.205/user10/ocidevopslab.git
-git branch -M main
-git push -uf origin main
-```
+    - Name: `OCI Instances`
 
-## Integrate with your tools
+3. On the details page, press `Sources` and press `Add`.
+4. Apply the following config and press `Save`.
 
-- [ ] [Set up project integrations](http://129.150.61.205/user10/ocidevopslab/-/settings/integrations)
+    - Name: `OCI`
+    - Source: `Sourced from a Project`
+    - Credential: `OCI`
+    - Inventory file: `inventories/inventory.oci.yml`
+    - Update options: check `Update on project update`
 
-## Collaborate with your team
+5. The inventory will be auto-synced. Press `Hosts` and you will see the webserver.
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+### (f) Set up Template and run config tasks
 
-## Test and Deploy
+1. We will be creating 2 job template and a workflow template.
+2. On the left pane, press `Templates` and press `Add`, `Add job template`.
+3. Apply the following config and press `Save`.
 
-Use the built-in continuous integration in GitLab.
+    a. Check Linux Distribution
+    
+    - Name: `Check Linux Distribution`
+    - Inventory: `OCI Instances`
+    - Playbook: `playbooks/check_distribution.yml`
+    - Credentials: `SSH_Key`
+    - Options: check `Privilege Escalation`
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+    b. Install Packages
 
-***
+    - Name: Install Packages
+    - Inventory: `OCI Instances`
+    - Playbook: `playbooks/main.yml`
+    - Credentials: `SSH_Key`
+    - Variables: 
+    ```yml
+    ---
+    services:
+      - httpd
+    
+    utilities:
+      - telnet
+      - curl
 
-# Editing this README
+    ports:
+    - '80/tcp'
+    - '8080/tcp'
+    ```
+    - Options: check `Privilege Escalation`
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+2. On the `Templates` page, press `Add`, `Add workflow template`.
+3. Apply the following config and press `Save`.
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+    c. Config Webserver
 
-## Name
-Choose a self-explaining name for your project.
+    - Name: `Config Webserver`
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+4. On the worklow template page, press `Start`, apply the following config and press `Save`.
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+    - Node Type: `Job Template`
+    - Select `Check Linux Distribution`
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+5. Hover to the `Check Linux Distribution` box, press the `"plus"` button to add another stage.
+6. Select `On Success` and press `Next`.
+7. Apply the following config and press `Save`.
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+    - Node Type: `Job Template`
+    - Select `Check Linux Distribution`
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+8. Press `Save` on the top right corner.
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+9. On the details page, press `Launch` to run the config tasks.
+10. When the jobs are completed, key in the public IP address of the webserver to verify the config.
