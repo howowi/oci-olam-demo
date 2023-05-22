@@ -3,7 +3,9 @@ plugin: oracle.oci.oci
 # From all regions
 regions: all
 
-#Get form compartment
+use_extra_vars: true
+
+#Get from compartment
 compartments:
 - compartment_ocid: "{{ compartment_ocid }}"
   fetch_hosts_from_subcompartments: false
