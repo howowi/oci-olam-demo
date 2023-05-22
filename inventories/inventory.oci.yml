@@ -7,7 +7,7 @@ use_extra_vars: true
 
 #Get from compartment
 compartments:
-- compartment_ocid: '{{ compartment_ocid }}'
+- compartment_name: "user10"
   fetch_hosts_from_subcompartments: false
 
 #Fetch Compute
