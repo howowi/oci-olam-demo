@@ -102,29 +102,7 @@ This lab covers the core functionalities of Oracle Linux Automation Manager.
         MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDSIbO+MG76VROl
         O8jzZF/vMgu8Ux1fnfTDKK4kdRycKhNxl0bh/GNNYJMVAEZYJBLRYzRTmTCNrqdL
         UPPXC5FGDO54xFfAeaWWg8RWY0onyENCHe3oPIP2MzOx9Ttq54U3YEfgrgGwL3Xh
-        rvbijk7l5bqmbVjzwa1yiy8qTnQDufP7m71RBP1TWeK8tfcBwG5yDZPiTDUDkqn+
-        mVpMEqEVscnkVrfhPPCumMScYnx8pgmNCKljUe1RO7vXpjPFJIhuEcse1YybbrIO
-        5YaszKTPSCdB8XLF5UmxDA0NokdLRYeb88Nkl1TfbmMlcbiH0QxYfgk+//6tFnCG
-        XE7/0R2RAgMBAAECggEAN33U9MXfmNY80Obf436/YvCJbttYJ3cUOzGUA2a1/nuS
-        FO5JNsarBrUZQnOHICGuooMbP3R2AQR9g4NGUaTpYWFq3JOlRNwbIYt8nv+rhqP5
-        Nw2mVS0eADd3UGidn1aytHQFp0zsfzWZYNcOtbe1GDs5tlesJPshrd0ZwIdlVdIc
-        AhL39LSsmmLRwxrBSz0FTEdPrMv11Kjw8aWdMl02Kocp+iG6QJjYUQPKzdICfFZ/
-        5DdZPrnPgM0R9kSxOojMSu045MfYAP12qSlBTaV2oi0P5YSLiMzWz9JLCG9xa18v
-        cQodeEFRCk3bWRmJB+6KIs1iYgEnjjZtHGlr4fXaDQKBgQDeIDG/AURlZmBcoWcD
-        ZxEL6IWg1UO7JhX1lxWOFLlMc9+97V2+ihcIgmxEsYlxDBsEgW7+3CEG5Yf/TUO9
-        P5Mxoj98rgNDUqhOU87NIsUl7Yc40vhvvmwZsccm++Tg8aJDK1ktjs1XpiuwGbLv
-        8L8FKenUI29/4DZpMl5JLtEHlwKBgQDyLUHCcIV7MwWfC+6jDHkXZ970dFvJ1bH9
-        gtOs263A+GvIwvvtOKGgQeLtrXNCKe18FA68Uke/99C/G/wF6L7mabNV0lyfF+k6
-        rLKbjs95rjWEvPpEswHakLbivsQh1nS8Q50yJfpeUnAC84hv2QhxKNE4ceGATbnU
-        59PVGgfpFwKBgE9WUG5YlYViO6jaPWEJvxzxwEjh439E6zL888X7wPN9r7y2u3UC
-        /Zccfm9KujyWhk/lqy98kI9WDG0zu64stvZTbTmrLZ8uNs9DP+olMSWK4XF6aSIA
-        cbv7s5ZJAkcWB07WfNO43b8gqxoLE85/vrqpbctHnNufyc9pHiQlhKOhAoGBANED
-        9HSPzvTE1X4uuzjoQ/7KfGg5oRrzH9qwNmdDdpRNFCHC/9H/BageFXCTOh4Jt9lW
-        Kl2pGhn6FaVLztl+xnxxEAHrPFtnNLmaYdDWkgTwMWqt+8adROVR7zaF9RtLT5dJ
-        N/wXQR51Qg2aCNCX3axk0SZJS5oD+3Zg27hZ7ifjAoGBANBu5B4hMQRQbSDb3n/f
-        LrJ7rir7rorffSImYytZIu/CaKJyRLF9IiqxawOnclrAN1rlT0sCmBsyZQQkNCYn
-        pgvDwUypOU59RAyUd2nY3TP30+peOJwaIbSRBTlcHZ/OWjaawDyN3SnqIAeg+PN+
-        HI00QZ1S0AO1uf/b0xEwu4M/
+        <continue>
         -----END PRIVATE KEY-----
         ```
     c. Machine
