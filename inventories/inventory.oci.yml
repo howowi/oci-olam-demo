@@ -7,8 +7,8 @@ use_extra_vars: true
 
 #Get from compartment
 compartments:
-- compartment_name: "user10"
-  parent_compartment_ocid: ocid1.compartment.oc1..aaaaaaaaem2rhhvdlnwgntk647rogfhc5rlljwtprlo4kk2zbsuifb3zvluq
+- compartment_name: "oci_workshop"
+  parent_compartment_ocid: oocid1.tenancy.oc1..aaaaaaaa75einznwt2yjxdynglaacav7xv5ouqcsm7af3xqqa5yulmcwvr3q
 
 #Fetch Compute
 fetch_compute_hosts: True
