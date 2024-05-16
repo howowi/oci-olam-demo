@@ -1,0 +1,55 @@
+# Title shown in Application Information tab.
+title: "Compute Deployment"
+# Sub Title shown in Application Information tab.
+description: "Compute Deployment"
+informationalText: "This stack creates compute VM"
+schemaVersion: 1.1.0
+version: "2.1"
+locale: "en"
+variableGroups:
+  - title: "Identity"
+    variables:
+      - compartment_ocid
+    visible: false
+
+  - title: "Compute Instance"
+    variables:
+      - vm_instance_name
+      - node_shape
+      - node_flex_shape_ocpus
+      - node_flex_shape_memory
+
+variables:
+  compartment_ocid:
+    type: oci:identity:compartment:id
+    required: true
+    title: "Compartment"
+    visible: true
+  ############################
+  #### Compute Instance #####
+  ############################
+  vm_instance_name:
+    type: string
+    title: "Name of the Compute Instance"
+    default: "webserver"
+    required: true
+
+  node_shape:
+    type: oci:core:instanceshape:name
+    title: "Shape of the Compute Instance"
+    required: true
+    default: "VM.Standard.E4.Flex"
+    dependsOn:      
+       compartmentId: ${compartment_ocid}
+
+  node_flex_shape_ocpus:
+    type: integer
+    title: "CPU count for the Compute Instance"
+    required: true
+    default: 2
+
+  node_flex_shape_memory:
+    type: integer
+    title: "Memory for the Compute Instance"
+    required: true
+    default: 8

@@ -66,14 +66,14 @@ resource "oci_core_instance" "webserver" {
 		recovery_action = "RESTORE_INSTANCE"
 	}
 	availability_domain = "uNUN:AP-SINGAPORE-1-AD-1"
-	compartment_id = "ocid1.compartment.oc1..aaaaaaaaq7p73lsppw3gidxr6djfbzlrpx3yrhll5ft7q3hd5r6dalox466a"
+	compartment_id = var.compartment_ocid
 	create_vnic_details {
 		assign_ipv6ip = "false"
 		assign_private_dns_record = "true"
 		assign_public_ip = "true"
 		subnet_id = "ocid1.subnet.oc1.ap-singapore-1.aaaaaaaaeurxq4fmoawmti3hbxdlfk7ey6ijo3xgbnidbk3c4rvaapwmqhka"
 	}
-	display_name = "webserver"
+	display_name = var.vm_instance_name
 	instance_options {
 		are_legacy_imds_endpoints_disabled = "false"
 	}
@@ -84,11 +84,11 @@ resource "oci_core_instance" "webserver" {
 		is_symmetric_multi_threading_enabled = "true"
 		type = "AMD_VM"
 	}
-	shape = "VM.Standard.E4.Flex"
+	shape = var.node_shape
 	shape_config {
 		baseline_ocpu_utilization = "BASELINE_1_1"
-		memory_in_gbs = "4"
-		ocpus = "1"
+		memory_in_gbs = var.node_flex_shape_memory
+		ocpus = var.node_flex_shape_ocpus
 	}
 	source_details {
 		boot_volume_size_in_gbs = "50"
