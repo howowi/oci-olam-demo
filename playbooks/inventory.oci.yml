@@ -5,10 +5,13 @@ regions: all
 
 use_extra_vars: true
 
+# Enable threads to speedup lookup
+enable_parallel_processing: yes
+
 #Get from compartment
 compartments:
-- compartment_name: "oci_workshop"
-  parent_compartment_ocid: ocid1.tenancy.oc1..aaaaaaaa75einznwt2yjxdynglaacav7xv5ouqcsm7af3xqqa5yulmcwvr3q
+  - compartment_ocid: ocid1.compartment.oc1..aaaaaaaaq7p73lsppw3gidxr6djfbzlrpx3yrhll5ft7q3hd5r6dalox466a
+    fetch_hosts_from_subcompartments: false
 
 #Fetch Compute
 fetch_compute_hosts: True
@@ -25,3 +28,7 @@ cache_prefix: oci_
 hostname_format_preferences:
   - "public_ip"
   - "private_ip"
+
+debug: true
+
+ansible_python_interpreter: /usr/bin/python3.9
