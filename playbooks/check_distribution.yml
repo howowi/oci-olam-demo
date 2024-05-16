@@ -1,5 +1,5 @@
 - name: Install application on VMs
-  hosts: 10.0.0.225
+  hosts: Webservers
   become: true
 
   tasks:

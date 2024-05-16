@@ -1,6 +1,6 @@
 ---
 - name: Install application on VMs
-  hosts: tag_app=webserver
+  hosts: Webservers
   become: true
 
   tasks:
