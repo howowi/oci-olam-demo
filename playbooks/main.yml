@@ -44,6 +44,7 @@
         path: /var/www/html/index.html
         state: touch
         mode: u=rw,g=r,o=r
+      when: ansible_facts['distribution'] == "OracleLinux"
 
     - name: Write HTML content
       blockinfile:
@@ -53,3 +54,4 @@
           <h1>This is {{ ansible_hostname }}</h1>
           <h2>IP Address: {{ ansible_default_ipv4.address }}</h2>
           <p>You have installed a webserver successfully</p>
+      when: ansible_facts['distribution'] == "OracleLinux"
