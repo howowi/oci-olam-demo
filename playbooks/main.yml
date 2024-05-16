@@ -10,32 +10,12 @@
         state: latest
       when: ansible_facts['distribution'] == "OracleLinux"
 
-    - name: install "{{ utilities }}" on Ubuntu
-      ansible.builtin.apt:
-        name: "{{ utilities }}"
-        state: latest
-      when: ansible_facts['distribution'] == "Ubuntu"
-
     - name: install "{{ services }}" on Oracle Linux
       yum:
         name: "{{ services }}"
         state: latest
       when: ansible_facts['distribution'] == "OracleLinux"
  
-    - name: install "{{ services }}" on Ubuntu
-      ansible.builtin.apt:
-        name: "{{ services }}"
-        state: latest
-        update_cache: yes
-      when: ansible_facts['distribution'] == "Ubuntu"    
-
-    - name: enable all the services on Ubuntu
-      ansible.builtin.service:
-        name: "{{ item }}"
-        state: started
-        enabled: yes
-      with_items: "{{ services }}"
-      when: ansible_facts['distribution'] == "Ubuntu"
 
     - name: enable all the services on Oracle Linux
       ansible.builtin.service:
@@ -44,14 +24,6 @@
         enabled: yes
       with_items: "{{ services }}"
       when: ansible_facts['distribution'] == "OracleLinux"
-    
-    - name: enable access to ports defined on Ubuntu
-      community.general.ufw:
-        rule: allow
-        port: "{{ item }}"
-        proto: tcp
-      with_items: "{{ ports }}"
-      when: ansible_facts['distribution'] == "Ubuntu"
 
     - name: enable access to ports defined on Oracle Linux
       ansible.posix.firewalld:
